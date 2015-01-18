@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+create_symlink() {
+	local link="$1"
+	local target="$2"
+	rm -f "$link"
+	ln -s "$target" "$link"
+	echo "$link -> $target"
+}
+
+install() {
+	local link="$1"
+	local target="$2"
+	if [ -e "$target" ]; then
+		if [ ! -e "$link" ]; then
+			create_symlink "$link" "$target"
+		else
+			if [ $force ]; then
+				create_symlink "$link" "$target"
+			else
+				echo "ERROR: File exists: $link"
+			fi
+		fi
+	else	
+		echo "ERROR: No target for link: $target"
+	fi
+}
+
+uninstall() {
+	local link="$1"
+	local target="$2"
+	if [ -e "$link" ]; then
+		if [ -L "$link" ]; then
+			rm $link
+			echo "Removed symlink $link"
+		else
+			echo "ERROR: Not a symlink: $link"
+		fi
+	fi
+}
+
+traverse_files() {
+	find . -name "*.lnk" -type f -print0 | while read -d $'\0' -r file; do
+		local file="$(readlink -f $file)"
+		local link="$(cat $file)"
+		local link="${link/#~/$HOME}"
+		local target="${file%.lnk}"
+		$1 "$link" "$target"
+	done
+}
+
+abort() {
+	echo "Usage: dotfiles (install|uninstall|reinstall) [-f]"
+	exit 1
+}
+
+
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+cmd="$1"
+force="$([[ "$2" == "-f" ]] && echo "-f" || echo "")"
+
+case $cmd in
+	install)
+		traverse_files install
+		;;
+	uninstall)
+		traverse_files uninstall
+		;;
+	reinstall)
+		traverse_files uninstall
+		traverse_files install
+		;;
+	*)
+		abort
+		;;
+esac
