@@ -1,0 +1,23 @@
+bashrc_dir() {
+	local src="${BASH_SOURCE[0]}"
+	while [ -h "$src" ]; do 
+		local dir="$( cd -P "$( dirname "$src" )" && pwd )"
+		local src="$(readlink "$src")"
+		[[ $src != /* ]] && src="$dir/$src" 
+	done
+	echo "$( cd -P "$( dirname "$src" )" && pwd )"
+}
+
+bashrc_dir="$(bashrc_dir)"
+dotfiles_dir="$(dirname $bashrc_dir)"
+
+if [ -e "$bashrc_dir/functions.sh" ]; then
+	. "$bashrc_dir/functions.sh"
+fi
+
+while read -d $'\0' -r file; do
+	if [[ ! "$file" =~ "$dotfiles_dir/deps/" && \
+	      ! "$file" == "$bashrc_dir/functions.sh" ]]; then
+		. "$file"
+	fi
+done < <(find $dotfiles_dir -name "*.sh" -type f -print0)
