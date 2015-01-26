@@ -1,25 +1,14 @@
 #!/usr/bin/env bash
 
-create_symlink() {
-	local link="$1"
-	local target="$2"
-	rm -f "$link"
-	ln -s "$target" "$link"
-	echo "$link -> $target"
-}
-
 install() {
 	local link="$1"
 	local target="$2"
 	if [ -e "$target" ]; then
 		if [ ! -e "$link" ]; then
-			create_symlink "$link" "$target"
+			ln -s "$target" "$link"
+			echo "$link -> $target"
 		else
-			if [ $force ]; then
-				create_symlink "$link" "$target"
-			else
-				echo "ERROR: File exists: $link"
-			fi
+			echo "ERROR: File exists: $link"
 		fi
 	else	
 		echo "ERROR: No target for link: $target"
@@ -57,7 +46,6 @@ abort() {
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 cmd="$1"
-force="$([[ "$2" == "-f" ]] && echo "-f" || echo "")"
 
 case $cmd in
 	install)
