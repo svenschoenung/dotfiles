@@ -40,13 +40,13 @@ uninstall() {
 }
 
 traverse_files() {
-	find . -name "*.lnk" -type f -print0 | while read -d $'\0' -r file; do
+	while read -d $'\0' -r file; do
 		local file="$(readlink -f $file)"
 		local link="$(cat $file)"
 		local link="${link/#~/$HOME}"
 		local target="${file%.lnk}"
 		$1 "$link" "$target"
-	done
+	done < <(find "$dir" -name "*.lnk" -type f -print0)
 }
 
 abort() {
