@@ -46,6 +46,13 @@ dotfiles_uninstall() {
 	traverse_files uninstall_file
 }
 
+dotfiles_deps() {
+	local subcmd="$1"
+	while read -d $'\0' -r file; do
+		echo "Running $file"
+		"$file"
+	done < <(find "$dir/deps/" -name "*.sh" -type f -print0)
+}
 
 dotfiles_abort() {
 	echo "Usage: dotfiles (install|uninstall|deps)"
