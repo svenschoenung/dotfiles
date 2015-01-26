@@ -1,0 +1,29 @@
+ls
+ls *
+ll
+la
+cd
+cd -
+cd ~
+git add*
+git status
+git commit*
+git push
+git fetch
+git rebase*
+git reset*
+git merge*
+git diff*
+git a *
+git s
+git c *
+git p
+git f
+git rb
+git rb *
+git rs *
+git m
+git d
+git d *
+git ds
+git ds *
