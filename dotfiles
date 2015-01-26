@@ -54,10 +54,6 @@ case $cmd in
 	uninstall)
 		traverse_files uninstall
 		;;
-	reinstall)
-		traverse_files uninstall
-		traverse_files install
-		;;
 	*)
 		abort
 		;;
