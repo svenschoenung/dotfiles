@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-install() {
+install_file() {
 	local link="$1"
 	local target="$2"
 	if [ -e "$target" ]; then
@@ -15,7 +15,7 @@ install() {
 	fi
 }
 
-uninstall() {
+uninstall_file() {
 	local link="$1"
 	local target="$2"
 	if [ -e "$link" ]; then
@@ -38,23 +38,25 @@ traverse_files() {
 	done < <(find "$dir" -name "*.lnk" -type f -print0)
 }
 
-abort() {
-	echo "Usage: dotfiles (install|uninstall|reinstall) [-f]"
-	exit 1
+dotfiles_install() {
+	traverse_files install_file
+}
+
+dotfiles_uninstall() {
+	traverse_files uninstall_file
 }
 
 
-dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
-cmd="$1"
+dotfiles_abort() {
+	echo "Usage: dotfiles (install|uninstall|deps)"
+	exit 1
+}
 
-case $cmd in
-	install)
-		traverse_files install
-		;;
-	uninstall)
-		traverse_files uninstall
-		;;
-	*)
-		abort
-		;;
-esac
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+
+cmd="dotfiles_$1"; shift
+if [ "$(type -t "$cmd")" == "function" ]; then
+	$cmd $*
+else
+	dotfiles_abort
+fi
