@@ -1,0 +1,33 @@
+set ruler
+set number
+
+set hlsearch
+set incsearch
+set history=1000
+set showmatch
+
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+set nobackup
+set nowb
+set noswapfile
+
+nmap <C-k> mz:m-2<cr>`z
+nmap <C-j> mz:m+<cr>`z
+
+command W w !sudo tee % > /dev/null
+
+if has('mouse')
+  set mouse=a
+endif
+
+let mapleader=","
+set timeout timeoutlen=1500
+filetype plugin on
+
+source ~/.vimrc_includes/colors.vim
+source ~/.vimrc_includes/vundle.vim
+source ~/.vimrc_includes/airline.vim
