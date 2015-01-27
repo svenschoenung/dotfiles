@@ -1,0 +1,20 @@
+[
+ [:editor "ctrl-i" :instarepl.toggle-live]
+
+ [:find-bar "enter" :find.hide]
+
+ [:tabs "ctrl-[" :tabs.prev]
+ [:tabs "ctrl-]" :tabs.next]
+ [:tabs "ctrl-'" :tabs.move-prev-tabset]
+ [:tabs "ctrl-\\" :tabs.move-next-tabset]
+
+ [:tabset "ctrl-shift-]" :tabset.next]
+ [:tabset "ctrl-shift-[" :tabset.prev]
+ [:tabset "ctrl-shift-n" :tabset.new]
+ [:tabset "ctrl-shift-w" :tabset.close]
+
+ [:editor "ctrl-c" :clear-console]
+
+ [:filter-list.input "ctrl-j" (:filter-list.input.move-selection 1)]
+ [:filter-list.input "ctrl-k" (:filter-list.input.move-selection -1)]
+]

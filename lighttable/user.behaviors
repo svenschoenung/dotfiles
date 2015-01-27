@@ -1,0 +1,19 @@
+[
+ [:app :lt.objs.style/set-skin "dark"]
+ [:app :lt.objs.sidebar.workspace/workspace.open-on-start]
+ [:app :lt.objs.app/run-post-init :toggle-console]
+ [:app :lt.objs.settings/pair-keymap-diffs]
+ [:app :-lt.objs.intro/show-intro]
+ [:app :-lt.objs.menu/create-menu]
+ [:app :-lt.objs.menu/set-menu]
+
+ [:window :-lt.objs.menu/set-menu]
+
+ [:editor :lt.objs.editor/no-wrap]
+ [:editor :lt.objs.style/set-theme "default"]
+ [:editor :lt.plugins.vim/activate-vim]
+ [:editor :lt.objs.editor/line-numbers]
+
+ [:editor.clojure :lt.plugins.clojure/print-length 1000]
+ [:editor.clojure :lt.plugins.clojure/highlight-comment-forms]
+]
