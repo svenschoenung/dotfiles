@@ -5,6 +5,7 @@ install_file() {
 	local target="$2"
 	if [ -e "$target" ]; then
 		if [ ! -e "$link" ]; then
+			mkdir -p "$(dirname "$link")"
 			ln -s "$target" "$link"
 			echo "$link -> $target"
 		else
@@ -21,6 +22,7 @@ uninstall_file() {
 	if [ -e "$link" ]; then
 		if [ -L "$link" ]; then
 			rm $link
+			rmdir -p "$(dirname "$link")" 2> /dev/null
 			echo "Removed symlink $link"
 		else
 			echo "ERROR: Not a symlink: $link"
