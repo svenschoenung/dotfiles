@@ -5,11 +5,11 @@
 
  [:tabs "ctrl-[" :tabs.prev]
  [:tabs "ctrl-]" :tabs.next]
- [:tabs "ctrl-'" :tabs.move-prev-tabset]
- [:tabs "ctrl-\\" :tabs.move-next-tabset]
+ [:tabs "ctrl-shift-[" :tabs.move-prev-tabset]
+ [:tabs "ctrl-shift-]" :tabs.move-next-tabset]
 
- [:tabset "ctrl-shift-]" :tabset.next]
- [:tabset "ctrl-shift-[" :tabset.prev]
+ [:tabset "ctrl-'" :tabset.next]
+ [:tabset "ctrl-\\" :tabset.prev]
  [:tabset "ctrl-shift-n" :tabset.new]
  [:tabset "ctrl-shift-w" :tabset.close]
 
