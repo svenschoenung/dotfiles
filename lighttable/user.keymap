@@ -1,5 +1,10 @@
 [
  [:editor "ctrl-i" :instarepl.toggle-live]
+ [:editor "ctrl-m" (:eval.custom
+     "(with-out-str (clojure.pprint/write (macroexpand-1 '__SELECTION__)
+                                           :suppress-namespaces false
+                                           :dispatch clojure.pprint/code-dispatch))"
+     {:result-type :replace, :verbatim true})]
 
  [:find-bar "enter" :find.hide]
 
