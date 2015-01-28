@@ -22,4 +22,7 @@
 
  [:filter-list.input "ctrl-j" (:filter-list.input.move-selection 1)]
  [:filter-list.input "ctrl-k" (:filter-list.input.move-selection -1)]
+
+ [:app "ctrl-alt-o" :workspace.show-recents]
+ [:app "ctrl-alt-n" :workspace.new]
 ]
