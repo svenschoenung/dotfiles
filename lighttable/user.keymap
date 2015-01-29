@@ -23,7 +23,8 @@
  [:tabset "ctrl-shift-n" :tabset.new]
  [:tabset "ctrl-shift-w" :tabset.close]
 
- [:editor "ctrl-c" :clear-console]
+ [:editor "ctrl-shift-c" :clear-console]
+ [:editor "ctrl-c" :clear-inline-results]
 
  [:filter-list.input "ctrl-j" (:filter-list.input.move-selection 1)]
  [:filter-list.input "ctrl-k" (:filter-list.input.move-selection -1)]
